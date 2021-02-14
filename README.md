@@ -27,7 +27,7 @@ Download the package (https://sourceforge.net/projects/subread/files/subread-2.0
 
 ### step 2 
 
-Find the directory of featureCounts (eg.yourpath/subread-2.0.1-MacOS-x86_64/bin/featureCounts)
+Find the directory of featureCounts (eg. yourpath/subread-2.0.1-MacOS-x86_64/bin/featureCounts)
 
 ### step 3
 
