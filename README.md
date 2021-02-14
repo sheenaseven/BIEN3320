@@ -16,9 +16,9 @@ The raw sequencing data of these patients will be only used for tutorials. All d
 
 ## Prerequisites of **featureCounts**
 
-• bam files 
+• A bam file (featureCounts/Input/bam/Control1.bam)
 
-• GTF files (/chr21.hg37.gtf)
+• A GTF file (featureCounts/Input/gtf/chr21.hg37.gtf)
 
 
 ### step 1 
@@ -34,9 +34,9 @@ Find the directory of featureCounts (eg.yourpath/subread-2.0.1-MacOS-x86_64/bin/
 Run featureCounts
 
 ```
-*yourpath*/subread-2.0.1-MacOS-x86_64/bin/featureCounts -p -T 12 -B -t exon -g gene_name \
--a *yourpath*/featureCounts/Input/gtf/chr21.hg37.gtf \
--o *outputpath*/Control1.txt *yourpath*/featureCounts/Input/bam/Control1.bam
+yourpath/subread-2.0.1-MacOS-x86_64/bin/featureCounts -p -T 12 -B -t exon -g gene_name \
+-a yourpath/featureCounts/Input/gtf/chr21.hg37.gtf \
+-o outputpath/Control1.txt yourpath/featureCounts/Input/bam/Control1.bam
 ```
 
 `Note`: you need to change the **path** to your path. 
