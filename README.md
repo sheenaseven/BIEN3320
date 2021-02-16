@@ -111,7 +111,6 @@ with(subset(res, pvalue<.05 & log2FoldChange<0), points(log2FoldChange, -log10(p
 with(subset(res, pvalue<.05 & log2FoldChange>0), points(log2FoldChange, -log10(pvalue), pch=20, col="red"))
 ```
 
-<img width="150" height="150" src="https://github.com/sheenaseven/BIEN3320/tree/main/DESeq2/Output/Volcano.plot.png"/>
-
+<div align=center><img width="500" height="450" src="https://github.com/sheenaseven/BIEN3320/blob/main/DESeq2/Output/Volcano.plot.png"/></div>
 
 15 Feb 2021
