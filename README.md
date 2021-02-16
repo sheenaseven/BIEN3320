@@ -42,32 +42,75 @@ yourpath/subread-2.0.1-MacOS-x86_64/bin/featureCounts -p -T 12 -B -t exon -g gen
 
 `Note`: you need to change the **path** to your path. 
 
-## Prerequisites of **featureCounts**
+## Prerequisites of **DESeq2**
 
-• A bam file (featureCounts/Input/bam/Control1.bam)
+• A count matrix (DESeq2/Input/count.csv)
 
-• A GTF file (featureCounts/Input/gtf/chr21.hg37.gtf)
+• A sample information table (DESeq2/Input/info.csv)
 
 
 ### step 1 
 
-Download the package (https://sourceforge.net/projects/subread/files/subread-2.0.1/) and unzip the package.
+Install RStudio, open your RStudio and create a R script (File->New File->R script).
 
 ### step 2 
 
-Find the directory of featureCounts (eg. yourpath/subread-2.0.1-MacOS-x86_64/bin/featureCounts)
+Install the “DESeq2” package. 
+
+```
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install("DESeq2")
+library("DESeq2")
+```
 
 ### step 3
 
-Run featureCounts
+Prepare your data: A count matrix and A sample information table
 
 ```
-yourpath/subread-2.0.1-MacOS-x86_64/bin/featureCounts -p -T 12 -B -t exon -g gene_name \
--a yourpath/featureCounts/Input/gtf/chr21.hg37.gtf \
--o outputpath/Control1.txt yourpath/featureCounts/Input/bam/Control1.bam
+setwd("~/Dropbox/course/BIEN3320/Tutorial/T03/")
+
+countMatrix <- as.matrix(read.csv("count.csv",sep=",",row.names="gene"))
+info <- read.csv("info.csv", row.names=1)
+info$condition <- factor(info$condition)
+
+#The columns of the count matrix and the rows of the information table are in the same order.
+all(rownames(info) == colnames(countMatrix)) 
 ```
 
-`Note`: you need to change the **path** to your path. 
+### step 4
 
+Run DESeq2: two-group comparison
+
+```
+dds <- DESeqDataSetFromMatrix(countData = countMatrix,
+                              colData = info,
+                              design = ~ condition)
+dds <- dds[rowSums(counts(dds)) > 0,]
+dds$condition <- factor(dds$condition, levels = c("control","tumor"))
+dds <- DESeq(dds)
+results(dds)
+comparison=resultsNames(dds)[2]
+res <- results(dds, name=comparison)
+print(comparison)
+res<-as.data.frame(res)
+write.csv(res,'./deseq2.csv')
+```
+
+### step 5
+
+Volcano Plot to show the differentially expressed genes
+
+```
+par(mfrow=c(1,1))
+# Make a basic volcano plot
+with(res, plot(log2FoldChange, -log10(pvalue), pch=20, main="Volcano plot"))
+# Add colored points: blue if padj<0.05 & log2FoldChange<0, red if pvalue<.05 & log2FoldChange>0)
+with(subset(res, pvalue<.05 & log2FoldChange<0), points(log2FoldChange, -log10(pvalue), pch=20, col="blue"))
+with(subset(res, pvalue<.05 & log2FoldChange>0), points(log2FoldChange, -log10(pvalue), pch=20, col="red"))
+```
+
+<div align=center><img width="500" height="400" src="https://github.com/sheenaseven/BIEN3320/tree/main/DESeq2/Output/Volcano plot.png"/></div>
 
 15 Feb 2021
