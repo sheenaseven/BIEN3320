@@ -31,7 +31,6 @@ results(dds)
 comparison=resultsNames(dds)[2]
 res <- results(dds, name=comparison)  #condition_tumor_vs_control; log2(tumor/control).  
 print(comparison)
-test=as.data.frame(res)
 ##6 save to csv file
 res<-as.data.frame(res[complete.cases(res),])
 write.csv(res,'./deseq2.csv')
@@ -40,7 +39,7 @@ counts(dds, normalized=TRUE)
 sizeFactors(dds)
 
 #Volcano Plot to show the differential expressed genes
-par(pin=c(4, 3),mfrow=c(1,1))
+par(mfrow=c(1,1))
 # Make a basic volcano plot
 with(res, plot(log2FoldChange, -log10(pvalue), pch=20, main="Volcano plot"))
 # Add colored points: blue if padj<0.05 & log2FoldChange<0, red if pvalue<.05 & log2FoldChange>0)

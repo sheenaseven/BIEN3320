@@ -92,9 +92,9 @@ dds$condition <- factor(dds$condition, levels = c("control","tumor"))
 dds <- DESeq(dds)
 results(dds)
 comparison=resultsNames(dds)[2]
-res <- results(dds, name=comparison)
+res <- results(dds, name=comparison)   
 print(comparison)
-res<-as.data.frame(res)
+res<-as.data.frame(res[complete.cases(res),])
 write.csv(res,'./deseq2.csv')
 ```
 
@@ -107,8 +107,8 @@ par(mfrow=c(1,1))
 # Make a basic volcano plot
 with(res, plot(log2FoldChange, -log10(pvalue), pch=20, main="Volcano plot"))
 # Add colored points: blue if padj<0.05 & log2FoldChange<0, red if pvalue<.05 & log2FoldChange>0)
-with(subset(res, pvalue<.05 & log2FoldChange<0), points(log2FoldChange, -log10(pvalue), pch=20, col="blue"))
-with(subset(res, pvalue<.05 & log2FoldChange>0), points(log2FoldChange, -log10(pvalue), pch=20, col="red"))
+with(subset(res, pvalue<.05 & log2FoldChange<0), points(log2FoldChange, -log10(pvalue), pch=20, col="blue", cex = 2))
+with(subset(res, pvalue<.05 & log2FoldChange>0), points(log2FoldChange, -log10(pvalue), pch=20, col="red", cex = 2))
 ```
 
 <div align=center><img width="780" height="548" src="https://github.com/sheenaseven/BIEN3320/blob/main/DESeq2/Output/Volcano.plot.png"/></div>
