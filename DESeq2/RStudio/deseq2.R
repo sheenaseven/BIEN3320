@@ -5,7 +5,7 @@
 
 library("DESeq2")
 #1 read data
-setwd("~/Dropbox/course/BIEN3320/Tutorial/T03/")
+setwd("~/Downloads/BIEN3320-main/DESeq2/Input/") 
 countMatrix <- as.matrix(read.csv("count.csv",sep=",",row.names="gene"))
 info <- read.csv("info.csv", row.names=1)
 info$condition <- factor(info$condition)
