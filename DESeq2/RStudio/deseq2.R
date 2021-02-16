@@ -39,10 +39,11 @@ write.csv(res,'./deseq2.csv')
 counts(dds, normalized=TRUE)
 sizeFactors(dds)
 
-#plot the 
-par(mfrow=c(1,1))
+#Volcano Plot to show the differential expressed genes
+par(pin=c(4, 3),mfrow=c(1,1))
 # Make a basic volcano plot
 with(res, plot(log2FoldChange, -log10(pvalue), pch=20, main="Volcano plot"))
 # Add colored points: blue if padj<0.05 & log2FoldChange<0, red if pvalue<.05 & log2FoldChange>0)
-with(subset(res, pvalue<.05 & log2FoldChange<0), points(log2FoldChange, -log10(pvalue), pch=20, col="blue"))
-with(subset(res, pvalue<.05 & log2FoldChange>0), points(log2FoldChange, -log10(pvalue), pch=20, col="red"))
+with(subset(res, pvalue<.05 & log2FoldChange<0), points(log2FoldChange, -log10(pvalue), pch=20, col="blue", cex = 2))
+with(subset(res, pvalue<.05 & log2FoldChange>0), points(log2FoldChange, -log10(pvalue), pch=20, col="red", cex = 2))
+
