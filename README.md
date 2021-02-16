@@ -14,7 +14,7 @@ The raw sequencing data of these patients will be only used for tutorials. All d
 
 • **DESeq2** is a method for differential analysis of count data. [Love, M. I., Huber, W., & Anders, S. (2014). Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome biology, 15(12), 1-21.](https://doi.org/10.1186/s13059-014-0550-8) The DESeq2 package is available at (http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html).
 
-## Prerequisites of **DESeq2**
+## Prerequisites of **featureCounts**
 
 • A count matrix (DESeq2/Input/count.csv)
 
