@@ -46,3 +46,8 @@ with(res, plot(log2FoldChange, -log10(pvalue), pch=20, main="Volcano plot"))
 with(subset(res, pvalue<.05 & log2FoldChange<0), points(log2FoldChange, -log10(pvalue), pch=20, col="blue", cex = 2))
 with(subset(res, pvalue<.05 & log2FoldChange>0), points(log2FoldChange, -log10(pvalue), pch=20, col="red", cex = 2))
 
+
+t.test()
+??t.test
+
+
